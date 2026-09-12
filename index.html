@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" type="text/css" href="style.css" />
+</head>
+
+<body style="font-family: Helvetica, Arial, sans-serif; margin: 0; height: 100vh; background-image: url(./desktop.jpg); background-size: cover; background-repeat: no-repeat;">
+
+  <!-- top bar -->
+  <div id="top" style="position: absolute; width: 100%; box-sizing: border-box; display: flex; backdrop-filter: blur(10px); background-color: rgba(0, 0, 0, 0.6); color: #fff; justify-content: space-between; z-index: 10;">
+    <p style="margin-left: 16px; font-weight: 600;">CleanOS</p>
+    <p id="timeElement" style="margin-right: 16px;">Time</p>
+  </div>
+
+  <!-- desktop icons -->
+  <div id="desktopApps" style="padding-top: 64px; padding-left: 16px; display: flex; gap: 8px;">
+    <div id="notesicon" class="desktopicon">
+      <img src="./notes-icon.png" style="width: 64px; height: 64px; border-radius: 16px;" />
+      <p style="margin: 4px 0 0 0; color: #fff;">Notes</p>
+    </div>
+
+    <div id="todoicon" class="desktopicon">
+      <img src="./todo-icon.png" style="width: 64px; height: 64px; border-radius: 16px;" />
+      <p style="margin: 4px 0 0 0; color: #fff;">To-Do</p>
+    </div>
+
+    <div id="calcicon" class="desktopicon">
+      <img src="./calc-icon.png" style="width: 64px; height: 64px; border-radius: 16px;" />
+      <p style="margin: 4px 0 0 0; color: #fff;">Calculator</p>
+    </div>
+  </div>
+
+  <!-- welcome window -->
+  <div class="window" id="welcome" style="top: calc(50% - 90px); left: calc(50% - 180px);">
+    <div class="windowheader" id="welcomeheader">
+      <div class="closebutton" id="welcomeclose"></div>
+      <p class="headertext">CleanOS</p>
+      <div style="width: 16px; height: 16px;"></div>
+    </div>
+    <div style="background-color: #fff; margin: 6px; border-radius: 12px; padding: 16px;">
+      <p>A simple, clean operating system built from scratch.</p>
+      <a href="https://github.com/kapileshrajaravius/WebOS1.git">View on GitHub</a>
+    </div>
+  </div>
+
+  <!-- notes app window, closed by default -->
+  <div class="window" id="notes" style="display: none; top: calc(50% - 200px); left: calc(50% - 260px);">
+    <div class="windowheader" id="notesheader">
+      <div class="closebutton" id="notesclose"></div>
+      <p class="headertext">Notes</p>
+      <div style="width: 16px; height: 16px;"></div>
+    </div>
+    <div style="display: flex; margin: 6px;">
+      <div style="width: 140px; margin-right: 8px;">
+        <button id="newNoteButton" style="width: 100%; margin-bottom: 8px; padding: 6px 0; border-radius: 8px; border: none; background-color: #333; color: #fff; cursor: pointer;">+ New Note</button>
+        <div id="sidebar" style="background-color: #f2f2f2; border-radius: 12px; padding: 8px;"></div>
+      </div>
+      <div id="noteContent" contenteditable="true" style="background-color: #fff; width: 320px; height: 300px; border-radius: 12px; padding: 16px; overflow-y: auto;"></div>
+    </div>
+  </div>
+
+  <!-- to-do app window, closed by default -->
+  <div class="window" id="todo" style="display: none; top: calc(50% - 160px); left: calc(50% - 200px);">
+    <div class="windowheader" id="todoheader">
+      <div class="closebutton" id="todoclose"></div>
+      <p class="headertext">To-Do</p>
+      <div style="width: 16px; height: 16px;"></div>
+    </div>
+    <div style="background-color: #fff; margin: 6px; border-radius: 12px; padding: 16px; width: 260px;">
+      <div style="display: flex; gap: 6px; margin-bottom: 12px;">
+        <input id="todoInput" type="text" placeholder="add a task" style="flex: 1; padding: 6px 8px; border-radius: 8px; border: solid 1px #ccc;" />
+        <button id="todoAddButton" style="padding: 6px 12px; border-radius: 8px; border: none; background-color: #333; color: #fff; cursor: pointer;">Add</button>
+      </div>
+      <div id="todoList"></div>
+    </div>
+  </div>
+
+  <!-- calculator app window, closed by default -->
+  <div class="window" id="calculator" style="display: none; top: calc(50% - 180px); left: calc(50% - 100px);">
+    <div class="windowheader" id="calculatorheader">
+      <div class="closebutton" id="calculatorclose"></div>
+      <p class="headertext">Calculator</p>
+      <div style="width: 16px; height: 16px;"></div>
+    </div>
+    <div style="background-color: #fff; margin: 6px; border-radius: 12px; padding: 16px; width: 200px;">
+      <div id="calcDisplay" style="background-color: #f2f2f2; border-radius: 8px; padding: 12px; text-align: right; font-size: 24px; margin-bottom: 8px; min-height: 32px; word-wrap: break-word;">0</div>
+      <div class="calcgrid">
+        <button class="calcbtn calcbtn-clear" data-action="clear">C</button>
+        <button class="calcbtn" data-value="/">÷</button>
+        <button class="calcbtn" data-value="*">×</button>
+        <button class="calcbtn calcbtn-delete" data-action="delete">⌫</button>
+
+        <button class="calcbtn" data-value="7">7</button>
+        <button class="calcbtn" data-value="8">8</button>
+        <button class="calcbtn" data-value="9">9</button>
+        <button class="calcbtn" data-value="-">−</button>
+
+        <button class="calcbtn" data-value="4">4</button>
+        <button class="calcbtn" data-value="5">5</button>
+        <button class="calcbtn" data-value="6">6</button>
+        <button class="calcbtn" data-value="+">+</button>
+
+        <button class="calcbtn" data-value="1">1</button>
+        <button class="calcbtn" data-value="2">2</button>
+        <button class="calcbtn" data-value="3">3</button>
+        <button class="calcbtn calcbtn-equals" data-action="equals" style="grid-row: span 2;">=</button>
+
+        <button class="calcbtn" data-value="0" style="grid-column: span 2;">0</button>
+        <button class="calcbtn" data-value=".">.</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+
+</body>
+
+</html>
