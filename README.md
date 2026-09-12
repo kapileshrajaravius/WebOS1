@@ -1,25 +1,27 @@
 # CleanOS
 
-A simple, clean personal operating system built entirely with HTML, CSS, and JavaScript. No frameworks, just plain code.
+so this is my personal OS, built with just html css and js. no react no frameworks, just actual code.
 
-Live site: https://kapileshrajaravius.github.io/WebOS1/
+## what it does
 
-## What's inside
+it's basically an operating system, but just  in your browser. you've got windows you can drag around and close, a top bar with the time, and a few apps i actually built out:
 
-CleanOS is a desktop-style interface running in the browser. It has:
+- notes app, you can make as many notes as you want and just type directly into them
+- to-do list, add stuff, check it off, delete it
+- calculator, idk how to explain this more
 
-- A welcome window with an intro and a link to this repo
-- A top bar with the OS name and a live clock
-- Draggable, closable windows that stack properly (click one and it comes to the front)
-- Desktop icons that highlight when selected
+click the icons on the desktop to open each one.
 
-## Apps
+## how i built it
 
-- **Notes** — write and manage multiple notes. Click the "+" button to create a new one, click any note in the sidebar to switch to it, and typing directly into the note saves automatically.
-- **To-Do** — add tasks, check them off, remove them.
-- **Calculator** — a basic calculator with the usual operations.
+started from the hackclub webOS instruction(pasted it into ai to make it give me more precise instructions) which walks you through the welcome screen and the basic window/dragging setup. from there i added the extra apps and stacking logic (so clicking a window brings it above the others) myself. 
 
-## Running it locally
+## running it
 
-1. Clone the repo
-2. Open `index.html` in your browser, no build step or server needed
+the website is provided already
+
+## files
+
+- index.html - all the windows and app content
+- style.css - styling for everything
+- script.js - the actual logic, dragging, opening/closing, all three apps
