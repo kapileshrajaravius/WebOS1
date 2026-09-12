@@ -25,3 +25,9 @@ the website is provided already
 - index.html - all the windows and app content
 - style.css - styling for everything
 - script.js - the actual logic, dragging, opening/closing, all three apps
+
+## credits / citations
+- the draggable window function in script.js is adapted from the W3Schools tutorial on draggable elements: https://www.w3schools.com/howto/howto_js_draggable.asp
+- overall project structure (window/desktop/top bar setup) followed the Hack Club webOS jam: https://jams.hackclub.com/batch/webOS
+- the background and pictures are from Apple and Google
+- 
