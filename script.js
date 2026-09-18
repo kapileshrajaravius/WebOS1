@@ -72,6 +72,60 @@ function initializeWindow(id) {
   return element;
 }
 
+// minimize / taskbar system
+function minimizeWindow(element, label) {
+  element.style.display = "none";
+
+  var taskbarItem = document.createElement("div");
+  taskbarItem.className = "taskbaritem";
+  taskbarItem.innerText = label;
+  taskbarItem.id = "taskbar-" + element.id;
+
+  taskbarItem.addEventListener("click", function () {
+    openWindow(element);
+    taskbarItem.remove();
+  });
+
+  document.querySelector("#taskbar").appendChild(taskbarItem);
+}
+
+function addMinimizeHandling(windowId, label) {
+  var button = document.querySelector("#" + windowId + "minimize");
+  var element = document.getElementById(windowId);
+  button.addEventListener("click", function () {
+    minimizeWindow(element, label);
+  });
+}
+
+// makes a window resizable by dragging its bottom-right corner
+function makeResizable(windowId) {
+  var element = document.getElementById(windowId);
+  var handle = document.getElementById(windowId + "resize");
+
+  handle.addEventListener("mousedown", function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+
+    var startWidth = element.offsetWidth;
+    var startHeight = element.offsetHeight;
+    var startX = e.clientX;
+    var startY = e.clientY;
+
+    function doResize(e) {
+      element.style.width = (startWidth + (e.clientX - startX)) + "px";
+      element.style.height = (startHeight + (e.clientY - startY)) + "px";
+    }
+
+    function stopResize() {
+      document.removeEventListener("mousemove", doResize);
+      document.removeEventListener("mouseup", stopResize);
+    }
+
+    document.addEventListener("mousemove", doResize);
+    document.addEventListener("mouseup", stopResize);
+  });
+}
+
 // desktop icon selection
 var selectedIcon = undefined;
 
@@ -102,6 +156,8 @@ var welcomeScreenClose = document.querySelector("#welcomeclose");
 welcomeScreenClose.addEventListener("click", function () {
   closeWindow(welcomeScreen);
 });
+addMinimizeHandling("welcome", "CleanOS");
+makeResizable("welcome");
 
 // ============ notes app ============
 
@@ -110,6 +166,8 @@ var notesScreenClose = document.querySelector("#notesclose");
 notesScreenClose.addEventListener("click", function () {
   closeWindow(notesScreen);
 });
+addMinimizeHandling("notes", "Notes");
+makeResizable("notes");
 
 var notesIcon = document.querySelector("#notesicon");
 notesIcon.addEventListener("click", function () {
@@ -140,12 +198,10 @@ function setNoteContent(index) {
   renderSidebar();
 }
 
-// saves whatever the user types back into the content array as they type
 noteContentDiv.addEventListener("input", function () {
   content[currentNoteIndex].content = noteContentDiv.innerHTML;
 });
 
-// clears and rebuilds the whole sidebar list, highlighting the active note
 function renderSidebar() {
   var sidebar = document.querySelector("#sidebar");
   sidebar.innerHTML = "";
@@ -170,13 +226,11 @@ function renderSidebar() {
   }
 }
 
-// grabs today's date as a simple string for new notes
 function getTodayString() {
   var today = new Date();
   return (today.getMonth() + 1) + "/" + today.getDate() + "/" + today.getFullYear();
 }
 
-// the + button, adds a blank note and jumps straight to it
 var newNoteButton = document.querySelector("#newNoteButton");
 newNoteButton.addEventListener("click", function () {
   content.push({
@@ -198,6 +252,8 @@ var todoScreenClose = document.querySelector("#todoclose");
 todoScreenClose.addEventListener("click", function () {
   closeWindow(todoScreen);
 });
+addMinimizeHandling("todo", "To-Do");
+makeResizable("todo");
 
 var todoIcon = document.querySelector("#todoicon");
 todoIcon.addEventListener("click", function () {
@@ -272,6 +328,8 @@ var calculatorScreenClose = document.querySelector("#calculatorclose");
 calculatorScreenClose.addEventListener("click", function () {
   closeWindow(calculatorScreen);
 });
+addMinimizeHandling("calculator", "Calculator");
+makeResizable("calculator");
 
 var calcIcon = document.querySelector("#calcicon");
 calcIcon.addEventListener("click", function () {

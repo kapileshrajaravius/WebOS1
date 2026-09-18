@@ -4,7 +4,7 @@
   flex-direction: column;
   border-radius: 18px;
   position: absolute;
-  background-color: #fc4242;
+  background-color: #f4f4f4;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
   overflow: hidden;
 }
@@ -18,7 +18,8 @@
   justify-content: space-between;
   padding: 10px 12px;
   user-select: none;
-  background-color: #f87d7d;
+  background-color: #e4e4e4;
+  gap: 8px;
 }
 
 .headertext {
@@ -30,7 +31,16 @@
   width: 12px;
   height: 12px;
   cursor: pointer;
-  background-color: #ff301d;
+  background-color: #EC6B5E;
+  border-radius: 16px;
+  border: solid 1px rgba(0, 0, 0, 0.25);
+}
+
+.minimizebutton {
+  width: 12px;
+  height: 12px;
+  cursor: pointer;
+  background-color: #F5BD4F;
   border-radius: 16px;
   border: solid 1px rgba(0, 0, 0, 0.25);
 }
@@ -107,4 +117,35 @@
 
 .calcbtn-clear, .calcbtn-delete {
   background-color: #ddd;
+}
+
+.resizehandle {
+  width: 14px;
+  height: 14px;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  cursor: nwse-resize;
+}
+
+#taskbar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  gap: 8px;
+  padding: 8px 16px;
+  box-sizing: border-box;
+  z-index: 20;
+}
+
+.taskbaritem {
+  background-color: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 13px;
+  backdrop-filter: blur(10px);
 }

@@ -36,12 +36,13 @@
     <div class="windowheader" id="welcomeheader">
       <div class="closebutton" id="welcomeclose"></div>
       <p class="headertext">CleanOS</p>
-      <div style="width: 16px; height: 16px;"></div>
+      <div class="minimizebutton" id="welcomeminimize"></div>
     </div>
     <div style="background-color: #fff; margin: 6px; border-radius: 12px; padding: 16px;">
       <p>A simple, clean operating system built from scratch.</p>
-      <a href="https://github.com/kapileshrajaravius/WebOS1.git">View on GitHub</a>
+      <a href="https://github.com/kapileshrajaravius/WebOS1">View on GitHub</a>
     </div>
+    <div class="resizehandle" id="welcomeresize"></div>
   </div>
 
   <!-- notes app window, closed by default -->
@@ -49,7 +50,7 @@
     <div class="windowheader" id="notesheader">
       <div class="closebutton" id="notesclose"></div>
       <p class="headertext">Notes</p>
-      <div style="width: 16px; height: 16px;"></div>
+      <div class="minimizebutton" id="notesminimize"></div>
     </div>
     <div style="display: flex; margin: 6px;">
       <div style="width: 140px; margin-right: 8px;">
@@ -58,6 +59,7 @@
       </div>
       <div id="noteContent" contenteditable="true" style="background-color: #fff; width: 320px; height: 300px; border-radius: 12px; padding: 16px; overflow-y: auto;"></div>
     </div>
+    <div class="resizehandle" id="notesresize"></div>
   </div>
 
   <!-- to-do app window, closed by default -->
@@ -65,7 +67,7 @@
     <div class="windowheader" id="todoheader">
       <div class="closebutton" id="todoclose"></div>
       <p class="headertext">To-Do</p>
-      <div style="width: 16px; height: 16px;"></div>
+      <div class="minimizebutton" id="todominimize"></div>
     </div>
     <div style="background-color: #fff; margin: 6px; border-radius: 12px; padding: 16px; width: 260px;">
       <div style="display: flex; gap: 6px; margin-bottom: 12px;">
@@ -74,6 +76,7 @@
       </div>
       <div id="todoList"></div>
     </div>
+    <div class="resizehandle" id="todoresize"></div>
   </div>
 
   <!-- calculator app window, closed by default -->
@@ -81,7 +84,7 @@
     <div class="windowheader" id="calculatorheader">
       <div class="closebutton" id="calculatorclose"></div>
       <p class="headertext">Calculator</p>
-      <div style="width: 16px; height: 16px;"></div>
+      <div class="minimizebutton" id="calculatorminimize"></div>
     </div>
     <div style="background-color: #fff; margin: 6px; border-radius: 12px; padding: 16px; width: 200px;">
       <div id="calcDisplay" style="background-color: #f2f2f2; border-radius: 8px; padding: 12px; text-align: right; font-size: 24px; margin-bottom: 8px; min-height: 32px; word-wrap: break-word;">0</div>
@@ -110,7 +113,11 @@
         <button class="calcbtn" data-value=".">.</button>
       </div>
     </div>
+    <div class="resizehandle" id="calculatorresize"></div>
   </div>
+
+  <!-- taskbar for minimized windows -->
+  <div id="taskbar"></div>
 
   <script src="script.js"></script>
 
