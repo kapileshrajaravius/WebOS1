@@ -7,13 +7,11 @@
 
 <body style="font-family: Helvetica, Arial, sans-serif; margin: 0; height: 100vh; background-image: url(./desktop.jpg); background-size: cover; background-repeat: no-repeat;">
 
-  <!-- top bar -->
   <div id="top" style="position: absolute; width: 100%; box-sizing: border-box; display: flex; backdrop-filter: blur(10px); background-color: rgba(0, 0, 0, 0.6); color: #fff; justify-content: space-between; z-index: 10;">
     <p style="margin-left: 16px; font-weight: 600;">CleanOS</p>
     <p id="timeElement" style="margin-right: 16px;">Time</p>
   </div>
 
-  <!-- desktop icons -->
   <div id="desktopApps" style="padding-top: 64px; padding-left: 16px; display: flex; gap: 8px;">
     <div id="notesicon" class="desktopicon">
       <img src="./notes-icon.png" style="width: 64px; height: 64px; border-radius: 16px;" />
@@ -29,9 +27,13 @@
       <img src="./calc-icon.png" style="width: 64px; height: 64px; border-radius: 16px;" />
       <p style="margin: 4px 0 0 0; color: #fff;">Calculator</p>
     </div>
+
+    <div id="weathericon" class="desktopicon">
+      <img src="./weather-icon.png" style="width: 64px; height: 64px; border-radius: 16px;" />
+      <p style="margin: 4px 0 0 0; color: #fff;">Weather</p>
+    </div>
   </div>
 
-  <!-- welcome window -->
   <div class="window" id="welcome" style="top: calc(50% - 90px); left: calc(50% - 180px);">
     <div class="windowheader" id="welcomeheader">
       <div class="closebutton" id="welcomeclose"></div>
@@ -45,7 +47,6 @@
     <div class="resizehandle" id="welcomeresize"></div>
   </div>
 
-  <!-- notes app window, closed by default -->
   <div class="window" id="notes" style="display: none; top: calc(50% - 200px); left: calc(50% - 260px);">
     <div class="windowheader" id="notesheader">
       <div class="closebutton" id="notesclose"></div>
@@ -62,7 +63,6 @@
     <div class="resizehandle" id="notesresize"></div>
   </div>
 
-  <!-- to-do app window, closed by default -->
   <div class="window" id="todo" style="display: none; top: calc(50% - 160px); left: calc(50% - 200px);">
     <div class="windowheader" id="todoheader">
       <div class="closebutton" id="todoclose"></div>
@@ -79,7 +79,6 @@
     <div class="resizehandle" id="todoresize"></div>
   </div>
 
-  <!-- calculator app window, closed by default -->
   <div class="window" id="calculator" style="display: none; top: calc(50% - 180px); left: calc(50% - 100px);">
     <div class="windowheader" id="calculatorheader">
       <div class="closebutton" id="calculatorclose"></div>
@@ -116,7 +115,24 @@
     <div class="resizehandle" id="calculatorresize"></div>
   </div>
 
-  <!-- taskbar for minimized windows -->
+  <div class="window" id="weather" style="display: none; top: calc(50% - 150px); left: calc(50% - 140px);">
+    <div class="windowheader" id="weatherheader">
+      <div class="closebutton" id="weatherclose"></div>
+      <p class="headertext">Weather</p>
+      <div class="minimizebutton" id="weatherminimize"></div>
+    </div>
+    <div style="background-color: #fff; margin: 6px; border-radius: 12px; padding: 16px; width: 220px;">
+      <div style="display: flex; gap: 6px; margin-bottom: 12px;">
+        <input id="weatherInput" type="text" placeholder="enter a city" style="flex: 1; padding: 6px 8px; border-radius: 8px; border: solid 1px #ccc;" />
+        <button id="weatherSearchButton" style="padding: 6px 12px; border-radius: 8px; border: none; background-color: #333; color: #fff; cursor: pointer;">Go</button>
+      </div>
+      <div id="weatherResult" style="text-align: center;">
+        <p style="color: #999; font-size: 14px;">search a city to see the weather</p>
+      </div>
+    </div>
+    <div class="resizehandle" id="weatherresize"></div>
+  </div>
+
   <div id="taskbar"></div>
 
   <script src="script.js"></script>

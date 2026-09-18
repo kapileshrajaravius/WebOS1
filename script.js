@@ -1,4 +1,3 @@
-// makes an element draggable, grabbed this from w3schools and tweaked the names
 function dragElement(element) {
   var initialX = 0;
   var initialY = 0;
@@ -37,7 +36,6 @@ function dragElement(element) {
   }
 }
 
-// keeps track of the highest z-index so far
 var biggestIndex = 1;
 var topBar = document.querySelector("#top");
 
@@ -64,7 +62,6 @@ function addWindowTapHandling(element) {
   });
 }
 
-// sets up dragging and click to front for a window in one go
 function initializeWindow(id) {
   var element = document.getElementById(id);
   dragElement(element);
@@ -72,7 +69,6 @@ function initializeWindow(id) {
   return element;
 }
 
-// minimize / taskbar system
 function minimizeWindow(element, label) {
   element.style.display = "none";
 
@@ -97,10 +93,14 @@ function addMinimizeHandling(windowId, label) {
   });
 }
 
-// makes a window resizable by dragging its bottom-right corner
 function makeResizable(windowId) {
   var element = document.getElementById(windowId);
   var handle = document.getElementById(windowId + "resize");
+
+  var minWidth = 180;
+  var minHeight = 120;
+  var maxWidth = 700;
+  var maxHeight = 600;
 
   handle.addEventListener("mousedown", function (e) {
     e.preventDefault();
@@ -112,8 +112,14 @@ function makeResizable(windowId) {
     var startY = e.clientY;
 
     function doResize(e) {
-      element.style.width = (startWidth + (e.clientX - startX)) + "px";
-      element.style.height = (startHeight + (e.clientY - startY)) + "px";
+      var newWidth = startWidth + (e.clientX - startX);
+      var newHeight = startHeight + (e.clientY - startY);
+
+      newWidth = Math.max(minWidth, Math.min(maxWidth, newWidth));
+      newHeight = Math.max(minHeight, Math.min(maxHeight, newHeight));
+
+      element.style.width = newWidth + "px";
+      element.style.height = newHeight + "px";
     }
 
     function stopResize() {
@@ -126,7 +132,6 @@ function makeResizable(windowId) {
   });
 }
 
-// desktop icon selection
 var selectedIcon = undefined;
 
 function selectIcon(element) {
@@ -150,7 +155,6 @@ function handleIconTap(element) {
   }
 }
 
-// welcome window setup
 var welcomeScreen = initializeWindow("welcome");
 var welcomeScreenClose = document.querySelector("#welcomeclose");
 welcomeScreenClose.addEventListener("click", function () {
@@ -158,8 +162,6 @@ welcomeScreenClose.addEventListener("click", function () {
 });
 addMinimizeHandling("welcome", "CleanOS");
 makeResizable("welcome");
-
-// ============ notes app ============
 
 var notesScreen = initializeWindow("notes");
 var notesScreenClose = document.querySelector("#notesclose");
@@ -175,7 +177,6 @@ notesIcon.addEventListener("click", function () {
   openWindow(notesScreen);
 });
 
-// notes content, add as many objects as you want or use the + button in the app
 var content = [
   {
     title: "Welcome",
@@ -244,8 +245,6 @@ newNoteButton.addEventListener("click", function () {
 
 renderSidebar();
 setNoteContent(0);
-
-// ============ to do app ============
 
 var todoScreen = initializeWindow("todo");
 var todoScreenClose = document.querySelector("#todoclose");
@@ -321,8 +320,6 @@ todoInput.addEventListener("keydown", function (e) {
   }
 });
 
-// ============ calculator app ============
-
 var calculatorScreen = initializeWindow("calculator");
 var calculatorScreenClose = document.querySelector("#calculatorclose");
 calculatorScreenClose.addEventListener("click", function () {
@@ -368,7 +365,77 @@ for (var k = 0; k < calcButtons.length; k++) {
   });
 }
 
-// clock
+var weatherScreen = initializeWindow("weather");
+var weatherScreenClose = document.querySelector("#weatherclose");
+weatherScreenClose.addEventListener("click", function () {
+  closeWindow(weatherScreen);
+});
+addMinimizeHandling("weather", "Weather");
+makeResizable("weather");
+
+var weatherIcon = document.querySelector("#weathericon");
+weatherIcon.addEventListener("click", function () {
+  handleIconTap(weatherIcon);
+  openWindow(weatherScreen);
+});
+
+var weatherInput = document.querySelector("#weatherInput");
+var weatherSearchButton = document.querySelector("#weatherSearchButton");
+var weatherResult = document.querySelector("#weatherResult");
+
+function weatherCodeToText(code) {
+  if (code === 0) return "Clear sky";
+  if (code <= 3) return "Partly cloudy";
+  if (code <= 48) return "Foggy";
+  if (code <= 67) return "Rainy";
+  if (code <= 77) return "Snowy";
+  if (code <= 82) return "Rain showers";
+  if (code <= 99) return "Thunderstorm";
+  return "Unknown";
+}
+
+async function searchWeather() {
+  var city = weatherInput.value.trim();
+  if (city === "") {
+    return;
+  }
+
+  weatherResult.innerHTML = "<p style='color: #999; font-size: 14px;'>loading...</p>";
+
+  try {
+    var geoResponse = await fetch("https://geocoding-api.open-meteo.com/v1/search?name=" + encodeURIComponent(city) + "&count=1");
+    var geoData = await geoResponse.json();
+
+    if (!geoData.results || geoData.results.length === 0) {
+      weatherResult.innerHTML = "<p style='color: #999; font-size: 14px;'>city not found</p>";
+      return;
+    }
+
+    var place = geoData.results[0];
+
+    var weatherResponse = await fetch("https://api.open-meteo.com/v1/forecast?latitude=" + place.latitude + "&longitude=" + place.longitude + "&current=temperature_2m,weather_code");
+    var weatherData = await weatherResponse.json();
+
+    var temp = Math.round(weatherData.current.temperature_2m);
+    var condition = weatherCodeToText(weatherData.current.weather_code);
+
+    weatherResult.innerHTML = `
+      <p style="margin: 0; font-size: 14px; color: #666;">${place.name}, ${place.country}</p>
+      <p style="margin: 8px 0; font-size: 36px; font-weight: 600;">${temp}°C</p>
+      <p style="margin: 0; font-size: 14px;">${condition}</p>
+    `;
+  } catch (err) {
+    weatherResult.innerHTML = "<p style='color: #999; font-size: 14px;'>failed to fetch weather</p>";
+  }
+}
+
+weatherSearchButton.addEventListener("click", searchWeather);
+weatherInput.addEventListener("keydown", function (e) {
+  if (e.key === "Enter") {
+    searchWeather();
+  }
+});
+
 function updateTime() {
   var currentTime = new Date().toLocaleString();
   var timeText = document.querySelector("#timeElement");
