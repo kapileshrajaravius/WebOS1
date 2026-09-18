@@ -1,3 +1,53 @@
+#top {
+  position: absolute;
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background: linear-gradient(90deg, rgba(20, 20, 30, 0.75), rgba(40, 40, 60, 0.75));
+  backdrop-filter: blur(14px);
+  color: #fff;
+  z-index: 10;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0 0 14px 14px;
+}
+
+#top-left, #top-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+#top-logo {
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+  background: linear-gradient(135deg, #7fd4ff, #a78bfa);
+}
+
+#top-title {
+  margin: 0;
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0.3px;
+}
+
+#top-status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #4ade80;
+  box-shadow: 0 0 6px #4ade80;
+}
+
+#timeElement {
+  margin: 0;
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+}
+
 .window {
   border: none;
   display: flex;
